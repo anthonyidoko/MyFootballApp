@@ -29,6 +29,7 @@ class CompetitionAdapter : RecyclerView.Adapter<CompetitionAdapter.TeamsViewHold
     inner class TeamsViewHolder(view: View, listener: OnItemClickListener) :
         RecyclerView.ViewHolder(view) {
         val teamName: TextView = view.findViewById(R.id.tvTeamName)
+        val startDate: TextView = view.findViewById(R.id.tv_start_date)
         val availabilityInfo: ImageView = view.findViewById(R.id.iv_unavailable_sub)
         val competitionId: TextView = view.findViewById(R.id.tv_comp_id)
 
@@ -50,6 +51,7 @@ class CompetitionAdapter : RecyclerView.Adapter<CompetitionAdapter.TeamsViewHold
         val currentItem = competitions[position]
         holder.apply {
             teamName.text = currentItem.name
+            startDate.text = currentItem.currentSeason?.startDate ?: ""
             competitionId.text = currentItem.area.name
             if (competitionIdList.contains(currentItem.id)) {
                 availabilityInfo.visibility = View.VISIBLE

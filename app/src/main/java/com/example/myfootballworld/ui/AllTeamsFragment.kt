@@ -41,6 +41,7 @@ class AllTeamsFragment : Fragment() {
         viewModel.fetchTeams(args.leagueId)
 
         observeTeamDataAndUpdateViews()
+        navigate()
 
     }
 
@@ -103,6 +104,12 @@ class AllTeamsFragment : Fragment() {
             binding!!.leagueName.visibility = View.VISIBLE
         }
 
+    }
+
+    private fun navigate(){
+        binding!!.backArrow.setOnClickListener {
+            findNavController().navigate(R.id.action_allTeamsFragment_to_allCompetitionFragment)
+        }
     }
 
 

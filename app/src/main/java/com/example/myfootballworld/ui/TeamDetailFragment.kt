@@ -1,6 +1,7 @@
 package com.example.myfootballworld.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
@@ -41,6 +43,7 @@ class TeamDetailFragment : Fragment() {
         binding = FragmentTeamDetailBinding.bind(view)
         viewModel.fetchTeam(args.teamId)
         observeTeamDetailAndSetViews()
+        navigateBack()
     }
 
     /**
@@ -56,11 +59,16 @@ class TeamDetailFragment : Fragment() {
                 Status.SUCCESS -> {
                     setNetworkViews(false)
                     it.data?.let { data ->
-                        binding!!.teamDetailPageTitle.text = data.name
-                        binding!!.teamEmail.text = data.email
+                        binding!!.teamPageTitle.text = data.name
+                        binding!!.tvEmailAddress.text = data.email
+
                         binding!!.teamFoundedDate.text = data.founded.toString()
+
                         binding!!.tvWebsite.text = data.website
-                        binding!!.teamAreaName.text = data.area.name
+                        binding!!.tvNickName.text = data.shortName
+                        binding!!.tvAddress.text = data.address
+
+                        binding!!.tvPhoneNumber.text = data.phone
                         Glide.with(this)
                             .load(data.crestUrl)
                             .placeholder(R.drawable.ic_baseline_change_history_24)
@@ -89,9 +97,20 @@ class TeamDetailFragment : Fragment() {
         if (makeVisible) {
             binding!!.teamDetailPgBar.visibility = View.VISIBLE
             binding!!.teamDetailNetworkText.visibility = View.VISIBLE
+            binding!!.cvClubDetail.visibility = View.INVISIBLE
+            binding!!.clubDetailCard.visibility = View.INVISIBLE
+            binding!!.teamDetailLogo.visibility = View.INVISIBLE
+            binding!!.tvClubDetail.visibility = View.INVISIBLE
+            binding!!.tvTeamPlayers.visibility = View.INVISIBLE
         } else {
             binding!!.teamDetailPgBar.visibility = View.INVISIBLE
             binding!!.teamDetailNetworkText.visibility = View.INVISIBLE
+            binding!!.cvClubDetail.visibility = View.VISIBLE
+            binding!!.clubDetailCard.visibility = View.VISIBLE
+            binding!!.teamDetailLogo.visibility = View.VISIBLE
+            binding!!.tvClubDetail.visibility = View.VISIBLE
+            binding!!.tvTeamPlayers.visibility = View.VISIBLE
+
         }
     }
 
@@ -100,8 +119,13 @@ class TeamDetailFragment : Fragment() {
      */
     private fun setUpAdapter(squadData: List<Squad>) {
         squadAdapter.setData(squadData)
-        binding!!.squadRecyclerView.layoutManager = GridLayoutManager(activity, 2)
         binding!!.squadRecyclerView.adapter = squadAdapter
+    }
+
+    private fun navigateBack(){
+        binding!!.ivBackArrow.setOnClickListener {
+            findNavController().navigate(R.id.action_teamDetailFragment_to_allTeamsFragment)
+        }
     }
 
 

@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/grey_card_bg.xml" value="0.1795" />
+        <entry key="app/src/main/res/drawable/main_screen_top.xml" value="0.1215" />
+        <entry key="app/src/main/res/layout/competition_item.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_all_competition.xml" value="0.28177083333333336" />
+        <entry key="app/src/main/res/layout/fragment_all_teams.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_team_detail.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/league_item.xml" value="0.28177083333333336" />
+        <entry key="app/src/main/res/layout/squad_item.xml" value="0.33" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11 (2)" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

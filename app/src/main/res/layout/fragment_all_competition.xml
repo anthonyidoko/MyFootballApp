@@ -11,43 +11,28 @@
         android:id="@+id/competition_app_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@color/green"
         app:layout_constraintTop_toTopOf="parent"
-        android:elevation="4dp"
-        android:background="@drawable/main_screen_top">
+        android:elevation="4dp">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="50dp">
-            <ImageView
-                android:id="@+id/start_image"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/kickball"
-                android:scaleType="centerCrop"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+
             <TextView
                 android:id="@+id/mid_image"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/main_screen_top"
-                android:text="@string/maon_soccer"
+                android:text="Competitions"
                 android:fontFamily="@font/roboto_bold"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/start_image"
-                app:layout_constraintEnd_toStartOf="@id/end_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-            <ImageView
-                android:id="@+id/end_image"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/footballers"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

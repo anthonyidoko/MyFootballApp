@@ -39,9 +39,7 @@ class SquadAdapter : RecyclerView.Adapter<SquadAdapter.SquadViewHolder>() {
         val playerName: TextView = view.findViewById(R.id.player_name)
         val playerAge: TextView = view.findViewById(R.id.player_age)
         val playerPosition: TextView = view.findViewById(R.id.player_position)
-        val playerRole: TextView = view.findViewById(R.id.player_role)
         val playerBirthCountry: TextView = view.findViewById(R.id.player_birth_country)
-        val playerNationality: TextView = view.findViewById(R.id.player_nationality)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SquadViewHolder {
@@ -57,14 +55,12 @@ class SquadAdapter : RecyclerView.Adapter<SquadAdapter.SquadViewHolder>() {
 
         holder.apply {
 
-            playerAge.text = currentSquad.dateOfBirth?.let { calculateAge(it) }
+//            playerAge.text = currentSquad.dateOfBirth?.let { calculateAge(it) }
+            playerAge.text = currentSquad.dateOfBirth?.substring(0, currentSquad.dateOfBirth.indexOf('T'))
             playerName.text = currentSquad.name
             playerPosition.text = currentSquad.position
-            playerRole.text = role?.replaceFirst(
-                    "${role[0]}",
-                    "${currentSquad.role?.get(0)}")
+
             playerBirthCountry.text = currentSquad.countryOfBirth
-            playerNationality.text = currentSquad.nationality
         }
 
     }
@@ -116,4 +112,6 @@ class SquadAdapter : RecyclerView.Adapter<SquadAdapter.SquadViewHolder>() {
         }
         return age
     }
+
+
 }

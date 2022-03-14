@@ -13,4 +13,9 @@
     <string name="age">Age:</string>
     <string name="name">Name:</string>
     <string name="please_wait">Please wait ...</string>
+    <string name="start_date">Start Date:</string>
+    <string name="pn">PN</string>
+    <string name="nickname">NickName:</string>
+    <string name="phone_number">Phone Number:</string>
+    <string name="club_details">Club Details</string>
 </resources>

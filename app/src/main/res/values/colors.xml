@@ -11,4 +11,7 @@
     <color name="card_bg">#ede7f6</color>
     <color name="home_screen_bg">#e0e0e0</color>
     <color name="title_color">#ffcdd2</color>
+    <color name="card_color">#aaadab</color>
+    <color name="card_color2">#e6ede8</color>
+    <color name="green">#3c8f58</color>
 </resources>

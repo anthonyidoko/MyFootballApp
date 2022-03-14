@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MyFootballApp.iml" filepath="$PROJECT_DIR$/.idea/modules/MyFootballApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MyFootballWorld.iml" filepath="$PROJECT_DIR$/.idea/modules/MyFootballWorld.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MyFootballWorld.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MyFootballWorld.app.iml" />
     </modules>
   </component>
 </project>
