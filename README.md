@@ -7,10 +7,11 @@ When a competition is clicked, a new screen is opened which shows all the teams 
 And when a team is clicked, another screen is opened which shows the team details and players in the squad.
 
 Technologies used:
- Kotlin
- A RESTful API for football data
- Coroutines
- Room database
- MVVM Architecture
- Dependency Injection(Hilt)
+ Kotlin,
+ A RESTful API for football data,
+ Coroutines,
+ Room database,
+ MVVM Architecture,
+ Dependency Injection(Hilt),
  Jetpack Navigation Library
+
