@@ -15,3 +15,4 @@ Technologies used:
  Dependency Injection(Hilt),
  Jetpack Navigation Library
 
+*** PLEASE NOTE THAT THE maonTaskBranch IS DEDICATED TO THE TASK ***
