@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/allCompetitionFragment">
+
+    <fragment
+        android:id="@+id/allCompetitionFragment"
+        android:name="com.example.myfootballworld.ui.AllCompetitionFragment"
+        android:label="fragment_all_competition"
+        tools:layout="@layout/fragment_all_competition" >
+        <action
+            android:id="@+id/action_allCompetitionFragment_to_allTeamsFragment"
+            app:destination="@id/allTeamsFragment" />
+        <action
+            android:id="@+id/action_allCompetitionFragment_to_teamDetailFragment"
+            app:destination="@id/teamDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/allTeamsFragment"
+        android:name="com.example.myfootballworld.ui.AllTeamsFragment"
+        android:label="fragment_all_teams"
+        tools:layout="@layout/fragment_all_teams" >
+        <action
+            android:id="@+id/action_allTeamsFragment_to_teamDetailFragment"
+            app:destination="@id/teamDetailFragment" />
+        <action
+            android:id="@+id/action_allTeamsFragment_to_allCompetitionFragment"
+            app:destination="@id/allCompetitionFragment" />
+        <argument
+            android:name="leagueId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamDetailFragment"
+        android:name="com.example.myfootballworld.ui.TeamDetailFragment"
+        android:label="fragment_team_detail"
+        tools:layout="@layout/fragment_team_detail" >
+        <action
+            android:id="@+id/action_teamDetailFragment_to_allCompetitionFragment"
+            app:destination="@id/allCompetitionFragment" />
+        <action
+            android:id="@+id/action_teamDetailFragment_to_allTeamsFragment"
+            app:destination="@id/allTeamsFragment" />
+        <argument
+            android:name="teamId"
+            app:argType="integer" />
+    </fragment>
+</navigation>
