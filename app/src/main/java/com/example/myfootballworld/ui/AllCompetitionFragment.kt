@@ -53,10 +53,8 @@ class AllCompetitionFragment : Fragment() {
             when(it.status){
                 Status.LOADING -> {
                     setViews(true)
-                    Log.d("ZOE22", "status: ${it.status}")
                 }
                 Status.SUCCESS -> {
-                    Log.d("ZOE22", "status: ${it.status}")
                     setViews(false)
                     if (it.data != null){
                         competitionAdapter.populateList(it.data)
@@ -79,7 +77,6 @@ class AllCompetitionFragment : Fragment() {
 
                 }
                 Status.ERROR -> {
-                    Log.d("ZOE22", "status: ${it.status}")
                     setViews(false)
                     binding!!.tvPlsWait.visibility = View.INVISIBLE
                     binding!!.tvPlsWait.text = ERROR_MESSAGE

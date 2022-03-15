@@ -1,6 +1,5 @@
 package com.example.myfootballworld.ui.viewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,12 +13,10 @@ import com.example.myfootballworld.utils.Constants.Companion.ERROR_MESSAGE
 import com.example.myfootballworld.utils.Constants.Companion.NO_NETWORK
 import com.example.myfootballworld.utils.resource.NetworkChecker
 import com.example.myfootballworld.utils.resource.Resource
-import com.example.myfootballworld.utils.resource.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.log
 
 
 @HiltViewModel
@@ -88,6 +85,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun fetchCompetitionsFromApi() {
+        _competitions.postValue(Resource.loading(null))
         viewModelScope.launch(Dispatchers.IO) {
             if (networkChecker.hasInternetConnection()) {
                 try {
@@ -117,9 +115,13 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun fetchCompetitionsFromDb() {
+    private fun competitionListIsEmpty(): Boolean {
+        return competitions.value?.data == null
+    }
 
-        _competitions.postValue(Resource.loading(null))
+    fun fetchCompetitionsFromDb() {
+        if(competitionListIsEmpty()) _competitions.postValue(Resource.loading(null))
+
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = competitionRepo.fetchCompetitionsFromDb()
