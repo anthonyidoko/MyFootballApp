@@ -15,7 +15,7 @@ interface CompetitionsRepo {
 
     suspend fun fetchCompetitionsFromDb(): List<Competition>
 
-    suspend fun saveCompetitionsToDb(competitions: List<Competition>)
+    suspend fun saveCompetitionsToDb(competitions: List<Competition>) : List<Long>
 
 
 }

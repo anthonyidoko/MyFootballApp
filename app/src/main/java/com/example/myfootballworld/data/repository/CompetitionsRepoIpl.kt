@@ -24,8 +24,8 @@ class CompetitionsRepoIpl @Inject constructor(private val service: APIService,pr
         return db.competitionsDao().fetchAllCompetitionsFromRoom()
     }
 
-    override suspend fun saveCompetitionsToDb(competitions: List<Competition>) {
-        db.competitionsDao().saveAllCompetitionsToDb(competitions)
+    override suspend fun saveCompetitionsToDb(competitions: List<Competition>): List<Long> {
+        return db.competitionsDao().saveAllCompetitionsToDb(competitions)
     }
 
 

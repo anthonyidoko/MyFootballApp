@@ -1,6 +1,7 @@
 package com.example.myfootballworld.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +38,6 @@ class AllCompetitionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAllCompetitionBinding.bind(view)
-        mainViewModel.saveCompetitionsIntoDb()
         mainViewModel.fetchCompetitionsFromDb()
 
         populateRecyclerView()
@@ -53,8 +53,10 @@ class AllCompetitionFragment : Fragment() {
             when(it.status){
                 Status.LOADING -> {
                     setViews(true)
+                    Log.d("ZOE22", "status: ${it.status}")
                 }
                 Status.SUCCESS -> {
+                    Log.d("ZOE22", "status: ${it.status}")
                     setViews(false)
                     if (it.data != null){
                         competitionAdapter.populateList(it.data)
@@ -77,6 +79,7 @@ class AllCompetitionFragment : Fragment() {
 
                 }
                 Status.ERROR -> {
+                    Log.d("ZOE22", "status: ${it.status}")
                     setViews(false)
                     binding!!.tvPlsWait.visibility = View.INVISIBLE
                     binding!!.tvPlsWait.text = ERROR_MESSAGE
@@ -93,9 +96,10 @@ class AllCompetitionFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        mainViewModel.saveCompetitionsIntoDb()
+//        mainViewModel.saveCompetitionsIntoDb()
         observeNetworkState()
     }
+
 
     /**
      * Watches for internet connection

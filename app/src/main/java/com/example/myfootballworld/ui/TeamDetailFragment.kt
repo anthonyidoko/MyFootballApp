@@ -43,7 +43,7 @@ class TeamDetailFragment : Fragment() {
         binding = FragmentTeamDetailBinding.bind(view)
         viewModel.fetchTeam(args.teamId)
         observeTeamDetailAndSetViews()
-        navigateBack()
+//        navigateBack()
     }
 
     /**

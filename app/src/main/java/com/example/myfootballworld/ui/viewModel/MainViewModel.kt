@@ -1,5 +1,6 @@
 package com.example.myfootballworld.ui.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,10 +14,12 @@ import com.example.myfootballworld.utils.Constants.Companion.ERROR_MESSAGE
 import com.example.myfootballworld.utils.Constants.Companion.NO_NETWORK
 import com.example.myfootballworld.utils.resource.NetworkChecker
 import com.example.myfootballworld.utils.resource.Resource
+import com.example.myfootballworld.utils.resource.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.log
 
 
 @HiltViewModel
@@ -36,22 +39,25 @@ class MainViewModel @Inject constructor(
     private val _teamDetail = MutableLiveData<Resource<TeamDetailResponseData>>()
     val teamDetail: LiveData<Resource<TeamDetailResponseData>> = _teamDetail
 
+    init {
+        fetchCompetitionsFromApi()
+    }
 
     fun fetchTeams(id: Int) {
         _teams.postValue(Resource.loading(null))
         viewModelScope.launch(Dispatchers.IO) {
-            if (networkChecker.hasInternetConnection()){
+            if (networkChecker.hasInternetConnection()) {
                 try {
                     val response = competitionRepo.getAllTeams(API_KEY, id)
-                    if (response.isSuccessful){
+                    if (response.isSuccessful) {
                         _teams.postValue(Resource.success(response.body()))
-                    }else if (response.code() == 403){
+                    } else if (response.code() == 403) {
                         _teams.postValue(Resource.error(ERROR_MESSAGE, null))
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-            }else{
+            } else {
                 networkState.postValue(Resource.error(NO_NETWORK, null))
                 _teams.postValue(Resource.error(NO_NETWORK, null))
             }
@@ -62,18 +68,18 @@ class MainViewModel @Inject constructor(
     fun fetchTeam(id: Int) {
         _teamDetail.postValue(Resource.loading(null))
         viewModelScope.launch(Dispatchers.IO) {
-            if (networkChecker.hasInternetConnection()){
+            if (networkChecker.hasInternetConnection()) {
                 try {
                     val response = competitionRepo.getTeams(API_KEY, id)
-                    if (response.isSuccessful){
+                    if (response.isSuccessful) {
                         _teamDetail.postValue(Resource.success(response.body()))
-                    }else if (response.code() == 403){
+                    } else if (response.code() == 403) {
                         _teamDetail.postValue(Resource.error(ERROR_MESSAGE, null))
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-            }else{
+            } else {
                 networkState.postValue(Resource.error(NO_NETWORK, null))
                 _teamDetail.postValue(Resource.error(NO_NETWORK, null))
             }
@@ -81,30 +87,38 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun saveCompetitionsIntoDb() {
+    private fun fetchCompetitionsFromApi() {
         viewModelScope.launch(Dispatchers.IO) {
-            if (networkChecker.hasInternetConnection()){
+            if (networkChecker.hasInternetConnection()) {
                 try {
                     val response = competitionRepo.getAllCompetitions(API_KEY)
                     if (response.isSuccessful) {
-                        response.body()?.let {
-                            competitionRepo.saveCompetitionsToDb(it.competitions)
-                        }
+                        val result =
+                            competitionRepo.saveCompetitionsToDb(response.body()!!.competitions)
+                        if (result.isNotEmpty()) fetchCompetitionsFromDb()
                     } else {
-                        _competitions.postValue(Resource.error(ERROR_MESSAGE, null))
+                        _competitions.postValue(
+                            Resource.error(
+                                response.errorBody().toString(),
+                                null
+                            )
+                        )
+                        networkState.postValue(Resource.error(NO_NETWORK, null))
                     }
                 } catch (e: Exception) {
-
                     e.printStackTrace()
                 }
-            }else{
+
+            } else {
+                _competitions.postValue(Resource.error(NO_NETWORK, null))
+                fetchCompetitionsFromDb()
                 networkState.postValue(Resource.error(NO_NETWORK, null))
             }
-
         }
     }
 
     fun fetchCompetitionsFromDb() {
+
         _competitions.postValue(Resource.loading(null))
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -116,6 +130,4 @@ class MainViewModel @Inject constructor(
             }
         }
     }
-
-
 }

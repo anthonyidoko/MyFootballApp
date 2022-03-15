@@ -10,7 +10,7 @@ import com.example.myfootballworld.data.model.Competition
 @Dao
 interface CompetitionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveAllCompetitionsToDb(competitions: List<Competition>)
+    suspend fun saveAllCompetitionsToDb(competitions: List<Competition>): List<Long>
 
     @Query("SELECT * FROM competition_table")
     suspend fun fetchAllCompetitionsFromRoom(): List<Competition>
