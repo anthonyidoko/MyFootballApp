@@ -3,7 +3,7 @@ package com.example.myfootballworld.di.module
 import com.example.myfootballworld.data.database.db.AppDatabase
 import com.example.myfootballworld.data.network.APIService
 import com.example.myfootballworld.data.repository.CompetitionsRepo
-import com.example.myfootballworld.data.repository.CompetitionsRepoIpl
+import com.example.myfootballworld.data.repository.CompetitionsRepoImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +17,6 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideRepository(service: APIService,db:AppDatabase): CompetitionsRepo{
-        return CompetitionsRepoIpl(service,db)
+        return CompetitionsRepoImp(service,db)
     }
 }

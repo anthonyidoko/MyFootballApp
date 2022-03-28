@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.myfootballworld.R
 import com.example.myfootballworld.data.model.Squad
 import com.example.myfootballworld.databinding.FragmentTeamDetailBinding
@@ -26,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class TeamDetailFragment : Fragment() {
     private var binding: FragmentTeamDetailBinding? = null
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by activityViewModels()
     private val squadAdapter: SquadAdapter by lazy { SquadAdapter() }
     private val args: TeamDetailFragmentArgs by navArgs()
 
@@ -71,10 +73,13 @@ class TeamDetailFragment : Fragment() {
                         binding!!.tvPhoneNumber.text = data.phone
                         Glide.with(this)
                             .load(data.crestUrl)
-                            .placeholder(R.drawable.ic_baseline_change_history_24)
+                            .apply(RequestOptions().override(600, 200))
+                            .centerCrop()
+//                            .placeholder(R.drawable.ic_baseline_change_history_24)
                             .into(binding!!.teamDetailLogo)
                         setUpAdapter(data.squad)
                     }
+                    Log.d("ZOET", "observeTeamDetailAndSetViews: ${it.data?.crestUrl}")
                 }
                 Status.ERROR -> {
                     setNetworkViews(false)

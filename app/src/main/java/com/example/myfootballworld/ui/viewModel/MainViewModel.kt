@@ -8,7 +8,6 @@ import com.example.myfootballworld.data.model.AllTeamsResponseData
 import com.example.myfootballworld.data.model.Competition
 import com.example.myfootballworld.data.model.TeamDetailResponseData
 import com.example.myfootballworld.data.repository.CompetitionsRepo
-import com.example.myfootballworld.utils.Constants.Companion.API_KEY
 import com.example.myfootballworld.utils.Constants.Companion.ERROR_MESSAGE
 import com.example.myfootballworld.utils.Constants.Companion.NO_NETWORK
 import com.example.myfootballworld.utils.resource.NetworkChecker
@@ -36,16 +35,13 @@ class MainViewModel @Inject constructor(
     private val _teamDetail = MutableLiveData<Resource<TeamDetailResponseData>>()
     val teamDetail: LiveData<Resource<TeamDetailResponseData>> = _teamDetail
 
-    init {
-        fetchCompetitionsFromApi()
-    }
 
     fun fetchTeams(id: Int) {
         _teams.postValue(Resource.loading(null))
         viewModelScope.launch(Dispatchers.IO) {
             if (networkChecker.hasInternetConnection()) {
                 try {
-                    val response = competitionRepo.getAllTeams(API_KEY, id)
+                    val response = competitionRepo.getAllTeams(id)
                     if (response.isSuccessful) {
                         _teams.postValue(Resource.success(response.body()))
                     } else if (response.code() == 403) {
@@ -67,7 +63,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             if (networkChecker.hasInternetConnection()) {
                 try {
-                    val response = competitionRepo.getTeams(API_KEY, id)
+                    val response = competitionRepo.getTeams(id)
                     if (response.isSuccessful) {
                         _teamDetail.postValue(Resource.success(response.body()))
                     } else if (response.code() == 403) {
@@ -84,12 +80,12 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun fetchCompetitionsFromApi() {
+    fun fetchCompetitionsFromApi() {
         _competitions.postValue(Resource.loading(null))
         viewModelScope.launch(Dispatchers.IO) {
             if (networkChecker.hasInternetConnection()) {
                 try {
-                    val response = competitionRepo.getAllCompetitions(API_KEY)
+                    val response = competitionRepo.getAllCompetitions()
                     if (response.isSuccessful) {
                         val result =
                             competitionRepo.saveCompetitionsToDb(response.body()!!.competitions)

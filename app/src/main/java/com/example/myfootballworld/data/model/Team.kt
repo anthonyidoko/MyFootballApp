@@ -2,7 +2,7 @@ package com.example.myfootballworld.data.model
 
 data class Team(
     val address: String,
-    val area: AreaXXX,
+    val area: AreaX,
     val clubColors: String,
     val crestUrl: String,
     val email: String,

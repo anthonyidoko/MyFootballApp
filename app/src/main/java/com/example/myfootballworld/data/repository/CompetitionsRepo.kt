@@ -7,11 +7,11 @@ import com.example.myfootballworld.data.model.TeamDetailResponseData
 import retrofit2.Response
 
 interface CompetitionsRepo {
-    suspend fun getAllCompetitions(key: String) : Response<CompetitionsResponseData>
+    suspend fun getAllCompetitions() : Response<CompetitionsResponseData>
 
-    suspend fun getAllTeams(key: String, id: Int) : Response<AllTeamsResponseData>
+    suspend fun getAllTeams(id: Int) : Response<AllTeamsResponseData>
 
-    suspend fun getTeams(key: String, id: Int) : Response<TeamDetailResponseData>
+    suspend fun getTeams(id: Int) : Response<TeamDetailResponseData>
 
     suspend fun fetchCompetitionsFromDb(): List<Competition>
 
